@@ -32,7 +32,7 @@ $(document).ready(function(){
 App.MyTweets = function(event){
   event.preventDefault();
   $.ajax({
-    url: 'http://localhost:3000/tweets/' + $search.val(),
+    url: 'https://wtfamitweeting.herokuapp.com/tweets/' + $search.val(),
     type: 'GET',
     dataType: 'JSON'
   })
@@ -40,7 +40,7 @@ App.MyTweets = function(event){
     console.log(data);
     for (var i = 0; i < data.tweets.length; i++) {
       var html = "<div class='tweet'>";
-      html += "<p>Retweets: " + data.tweets[i].created_at + "</p>";
+      html += "<p>Posted: " + data.tweets[i].created_at + "</p>";
       html += "<p>" + App.addLinks(data.tweets[i].text) + "</p>";
       if (data.tweets[i].entities.media) {
         html += "<p><img src='" + data.tweets[i].entities.media[0].media_url + "'></p>";

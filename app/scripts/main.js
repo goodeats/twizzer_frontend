@@ -55,9 +55,10 @@ App.MyTweets = function(event){
       if (data.tweets[i].entities.media) {
         html += "<p><img src='" + data.tweets[i].entities.media[0].media_url + "'></p>";
       }
+      html += "<div class='twitterStats'>"
       html += "<p>Retweets: " + data.tweets[i].retweet_count + "</p>";
       html += "<p>Favorites: " + data.tweets[i].favorite_count + "</p>";
-      html += "</div>";
+      html += "</div></div>";
       $tweetList.append(html);
     }
   })

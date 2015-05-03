@@ -4,6 +4,11 @@
   border-bottom: 1px solid #e1e8ed;
 }
 
+.twitterStats p {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 /* Space out content a bit */
 body {
   padding-top: 20px;

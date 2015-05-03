@@ -38,9 +38,19 @@ App.MyTweets = function(event){
   })
   .done(function(data) {
     console.log(data);
+
+    // pass in the 'created_at' string returned from twitter //
+    // stamp arrives formatted as Tue Apr 07 22:52:51 +0000 2009 //
+    function parseTwitterDate(text) {
+    // var newtext = text.replace(/(\+\S+) (.*)/, '$2 $1');
+    var date = new Date(Date.parse(text)).toLocaleDateString();
+    var time = new Date(Date.parse(text)).toLocaleTimeString();
+    return date +' • ' + time;
+    }
+
     for (var i = 0; i < data.tweets.length; i++) {
       var html = "<div class='tweet'>";
-      html += "<p>Posted: " + data.tweets[i].created_at + "</p>";
+      html += "<p>Posted: " + parseTwitterDate(data.tweets[i].created_at) + "</p>";
       html += "<p>" + App.addLinks(data.tweets[i].text) + "</p>";
       if (data.tweets[i].entities.media) {
         html += "<p><img src='" + data.tweets[i].entities.media[0].media_url + "'></p>";

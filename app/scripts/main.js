@@ -1,32 +1,33 @@
 'use strict';
 
-var App = App || {};
-var $jumbo = $('#jumbo');
-var $tweetList = $('#tweet-list');
-var $search = $('#handleInput');
-var $form = $('.form-inline');
+var App = App || {},
+$jumbo = $('#jumbo'),
+$tweetList = $('#tweet-list'),
+$search = $('#handleInput'),
+$form = $('.form-inline'),
+$gridButton = $('#btnOther');
 
-console.log('if you can read this, you are probably a web developer');
+console.log('if you can read this, you are probably a web developer :)');
 
 $(document).ready(function(){
 
-  var $bigButton = $('#btnMain');
   $search.focus();
-  $bigButton.on('click', function(){
+
+  $gridButton.on('click', function(){
     $tweetList.empty();
     App.MyTweets(event);
-    console.log('you just clicked the button, cheers!');
     console.log($search.val());
     $('h1').text('What the F@$% is @' + $search.val() + ' Tweeting??');
   });
+
   $form.submit(function(event) {
     event.preventDefault();
     $tweetList.empty();
     App.MyTweets(event);
-    console.log('you just clicked the button, cheers!');
     console.log($search.val());
     $('h1').text('What the F@$% is @' + $search.val() + ' Tweeting??');
   });
+
 });
 
 App.MyTweets = function(event){
@@ -42,7 +43,6 @@ App.MyTweets = function(event){
     // pass in the 'created_at' string returned from twitter //
     // stamp arrives formatted as Tue Apr 07 22:52:51 +0000 2009 //
     function parseTwitterDate(text) {
-    // var newtext = text.replace(/(\+\S+) (.*)/, '$2 $1');
     var date = new Date(Date.parse(text)).toLocaleDateString();
     var time = new Date(Date.parse(text)).toLocaleTimeString();
     return date +' • ' + time;
@@ -63,7 +63,7 @@ App.MyTweets = function(event){
     }
   })
   .fail(function() {
-    console.log("try using better code");
+    console.log("try typing a real twitter handle... here's what you look like right now");
     var puppy = "<img id='puppyFail' src='http://www.goodmeme.net/wp-content/uploads/2014/07/240_cute_dog_driving.jpg' alt='Smiley face'>";
     $jumbo.append(puppy);
     window.setTimeout(function(){

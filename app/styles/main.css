@@ -21,6 +21,10 @@ body {
   border-radius: 6px;
 }
 
+.jumbotron .btnOther {
+  margin-top: 10px;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

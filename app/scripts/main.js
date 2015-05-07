@@ -110,10 +110,10 @@ App.MyGridTweets = function(event){
     for (var i = 0; i < data.tweets.length; i++) {
       if (data.tweets[i].entities.media) {
         var html = "<div class='tweetGrid'>";
-        html += "<p><img class='tweetPic' src='" + data.tweets[i].entities.media[0].media_url + "'></p>";
+        html += "<img class='tweetPic' src='" + data.tweets[i].entities.media[0].media_url + "'>";
         html += "<div class='twitterStats'>";
-        html += "<p>RT: " + data.tweets[i].retweet_count + "</p>";
-        html += "<p>F: " + data.tweets[i].favorite_count + "</p>";
+        html += "<span>RT: " + data.tweets[i].retweet_count + "</span>";
+        html += "<span>F: " + data.tweets[i].favorite_count + "</span>";
         html += "</div></div>";
         $tweetList.append(html);
       }

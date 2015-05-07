@@ -4,23 +4,30 @@
   border-bottom: 1px solid #e1e8ed;
 }
 
-.tweetPic {
-  height: 250px;
-  max-width: 250px;
-  /*margin-top: -20px;*/
+.tweetGrid {
   margin: 20px;
+  position: relative;
+  display: inline-block;
 }
 
-.tweetGrid {
-  display: inline-block;
+.tweetGrid .tweetPic {
+  height: 250px;
+  max-width: 250px;
 }
 
 .tweetGrid .twitterStats {
   color: #fff;
+  z-index: 10;
+  text-align: center;
+  position: relative;
+  margin-top: -40px;
+  font-weight: bold;
+  background-color: rgba(0,0,0,0.5);
 }
 
-.twitterStats p {
+.twitterStats span {
   display: inline-block;
+  vertical-align: middle;
   margin-right: 10px;
 }
 

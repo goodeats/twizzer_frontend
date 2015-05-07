@@ -15,9 +15,8 @@ $(document).ready(function(){
 
   $gridButton.on('click', function(){
     $tweetList.empty();
-    App.MyTweets(event);
-    console.log($search.val());
-    $('h1').text('What the F@$% is @' + $search.val() + ' Tweeting??');
+    App.MyGridTweets(event);
+    $('h1').text('What the F@$% is @' + $search.val() + ' Twitpic-ing??');
   });
 
   $form.submit(function(event) {
@@ -88,4 +87,50 @@ App.addLinks = function(text){
     }
   }
   return textAr.join(' ');
+};
+
+App.MyGridTweets = function(event){
+  event.preventDefault();
+  $.ajax({
+    url: 'https://wtfamitweeting.herokuapp.com/tweets/' + $search.val(),
+    type: 'GET',
+    dataType: 'JSON'
+  })
+  .done(function(data) {
+    console.log(data);
+
+    // pass in the 'created_at' string returned from twitter //
+    // stamp arrives formatted as Tue Apr 07 22:52:51 +0000 2009 //
+    function parseTwitterDate(text) {
+    var date = new Date(Date.parse(text)).toLocaleDateString();
+    var time = new Date(Date.parse(text)).toLocaleTimeString();
+    return date +' • ' + time;
+    }
+
+    for (var i = 0; i < data.tweets.length; i++) {
+      if (data.tweets[i].entities.media) {
+        var html = "<div class='tweetGrid'>";
+        html += "<p>Posted: " + parseTwitterDate(data.tweets[i].created_at) + "</p>";
+        html += "<p>" + App.addLinks(data.tweets[i].text) + "</p>";
+        html += "<p><img class='tweetPic' src='" + data.tweets[i].entities.media[0].media_url + "'></p>";
+        html += "<div class='twitterStats'>";
+        html += "<p>Retweets: " + data.tweets[i].retweet_count + "</p>";
+        html += "<p>Favorites: " + data.tweets[i].favorite_count + "</p>";
+        html += "</div></div>";
+        $tweetList.append(html);
+      }
+    }
+
+    $('.tweetPic').on('mouseover', function(){
+      console.log('hi');
+    });
+  })
+  .fail(function() {
+    console.log("try typing a real twitter handle... here's what you look like right now");
+    var puppy = "<img id='puppyFail' src='http://www.goodmeme.net/wp-content/uploads/2014/07/240_cute_dog_driving.jpg' alt='Smiley face'>";
+    $jumbo.append(puppy);
+    window.setTimeout(function(){
+      location.reload();
+    }, 3000);
+  });
 };

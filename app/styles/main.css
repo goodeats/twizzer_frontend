@@ -4,6 +4,11 @@
   border-bottom: 1px solid #e1e8ed;
 }
 
+.tweetPic {
+  height: 150px;
+  max-width: 150px;
+}
+
 .twitterStats p {
   display: inline-block;
   margin-right: 10px;

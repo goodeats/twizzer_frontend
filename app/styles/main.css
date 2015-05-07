@@ -5,8 +5,18 @@
 }
 
 .tweetPic {
-  height: 150px;
-  max-width: 150px;
+  height: 250px;
+  max-width: 250px;
+  /*margin-top: -20px;*/
+  margin: 20px;
+}
+
+.tweetGrid {
+  display: inline-block;
+}
+
+.tweetGrid .twitterStats {
+  color: #fff;
 }
 
 .twitterStats p {

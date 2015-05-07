@@ -110,20 +110,22 @@ App.MyGridTweets = function(event){
     for (var i = 0; i < data.tweets.length; i++) {
       if (data.tweets[i].entities.media) {
         var html = "<div class='tweetGrid'>";
-        html += "<p>Posted: " + parseTwitterDate(data.tweets[i].created_at) + "</p>";
-        html += "<p>" + App.addLinks(data.tweets[i].text) + "</p>";
         html += "<p><img class='tweetPic' src='" + data.tweets[i].entities.media[0].media_url + "'></p>";
         html += "<div class='twitterStats'>";
-        html += "<p>Retweets: " + data.tweets[i].retweet_count + "</p>";
-        html += "<p>Favorites: " + data.tweets[i].favorite_count + "</p>";
+        html += "<p>RT: " + data.tweets[i].retweet_count + "</p>";
+        html += "<p>F: " + data.tweets[i].favorite_count + "</p>";
         html += "</div></div>";
         $tweetList.append(html);
       }
     }
 
-    $('.tweetPic').on('mouseover', function(){
-      console.log('hi');
+    $('.twitterStats').hide();
+    $('.tweetPic').mouseenter(function(){
+      $('.twitterStats').show();
+    }).mouseleave(function(){
+      $('.twitterStats').hide();
     });
+
   })
   .fail(function() {
     console.log("try typing a real twitter handle... here's what you look like right now");

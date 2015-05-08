@@ -16,7 +16,7 @@ $(document).ready(function(){
   $gridButton.on('click', function(){
     $tweetList.empty();
     App.MyGridTweets(event);
-    $('h1').text('What the F@$% is @' + $search.val() + ' Twitpic-ing??');
+    $('h1').text('What is @' + $search.val() + ' Twitpic-ing??');
   });
 
   $form.submit(function(event) {
@@ -24,7 +24,7 @@ $(document).ready(function(){
     $tweetList.empty();
     App.MyTweets(event);
     console.log($search.val());
-    $('h1').text('What the F@$% is @' + $search.val() + ' Tweeting??');
+    $('h1').text('What is @' + $search.val() + ' Tweeting??');
   });
 
 });
@@ -109,17 +109,33 @@ App.MyGridTweets = function(event){
 
     for (var i = 0; i < data.tweets.length; i++) {
       if (data.tweets[i].entities.media) {
-        var html = "<div class='tweetGrid'>";
-        html += "<div class='star'><span class='glyphicon glyphicon-star'></div>";
-        html += "<img class='tweetPic' src='" + data.tweets[i].entities.media[0].media_url + "'>";
-        html += "<div class='twitterStats'>";
-        html += "<span>RT: " + data.tweets[i].retweet_count + "</span>";
-        html += "<span>F: " + data.tweets[i].favorite_count + "</span>";
-        html += "</div></div>";
-        $tweetList.append(html);
+
+          var html = "<div class='tweetGrid'>";
+          if (data.tweets[i].user.followers_count > 500) {
+            html += "<div class='star'><span class='glyphicon glyphicon-star'></div>";
+          }
+          html += "<img class='tweetPic' ";
+
+          if (data.tweets[i].favorite_count > 10 && data.tweets[i].retweet_count > 10){
+            html += "style='border: 10px solid red;'";
+          } else if (data.tweets[i].favorite_count > 10){
+            html += "style='border: 10px solid blue;'";
+          } else if (data.tweets[i].retweet_count > 10){
+            html += "style='border: 10px solid green;'";
+          }
+
+          html += " src='" + data.tweets[i].entities.media[0].media_url + "'>";
+          console.log(html);
+          html += "<div class='twitterStats'>";
+          html += "<span>RT: " + data.tweets[i].retweet_count + "</span>";
+          html += "<span>F: " + data.tweets[i].favorite_count + "</span>";
+          html += "</div></div>";
+
+          $tweetList.append(html);
       }
     }
 
+    // add for lo here to isolate??
     $('.twitterStats').hide();
     $('.tweetPic').mouseenter(function(){
       $('.twitterStats').show();

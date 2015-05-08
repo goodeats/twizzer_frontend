@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .tweet {
   padding: 20px;
   background-color: #fff;
@@ -13,6 +18,10 @@
 .tweetGrid .tweetPic {
   height: 250px;
   max-width: 250px;
+}
+
+.tweetGrid .tweetPic .fav {
+  border: 10px solid red;
 }
 
 .tweetGrid .twitterStats {
@@ -41,7 +50,7 @@
   z-index: 20;
   position: relative;
   margin-bottom: -40px;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 /* Space out content a bit */

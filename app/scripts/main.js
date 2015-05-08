@@ -18,6 +18,7 @@ $(document).ready(function(){
     $tweetList.empty();
     App.MyGridTweets(event);
     $('h1').text('What is @' + $search.val() + ' Twitpic-ing??');
+    $('.lead').text('Probably something captivating...');
   });
 
   $form.submit(function(event) {
@@ -26,6 +27,7 @@ $(document).ready(function(){
     App.MyTweets(event);
     console.log($search.val());
     $('h1').text('What is @' + $search.val() + ' Tweeting??');
+    $('.lead').text('Probably something insightful...');
   });
 
 });
@@ -56,8 +58,8 @@ App.MyTweets = function(event){
         html += "<p><img src='" + data.tweets[i].entities.media[0].media_url + "'></p>";
       }
       html += "<div class='twitterStats'>"
-      html += "<p>Retweets: " + data.tweets[i].retweet_count + "</p>";
-      html += "<p>Favorites: " + data.tweets[i].favorite_count + "</p>";
+      html += "<span>Retweets: " + data.tweets[i].retweet_count + "</span>";
+      html += "<span>Favorites: " + data.tweets[i].favorite_count + "</span>";
       html += "</div></div>";
       $tweetList.append(html);
     }
@@ -100,11 +102,12 @@ App.MyGridTweets = function(event){
   .done(function(data) {
     console.log(data);
 
-    var legend = "<div id='legend'>";
-    legend += "<p>500+ followers = <span class='glyphicon glyphicon-star star'></span></p>";
-    legend += "<p>10+ favorites = <span style='color: blue;'>blue border</span></p>";
-    legend += "<p>10+ retweets = <span style='color: green;'>green border</span></p>";
-    legend += "<p>10+ favorites & retweets = <span style='color: red;'>red border</span></p>";
+    var legend = "<p style='font-weight:bold'>Legend</p>";
+    legend += "<div id='legend'>";
+    legend += "<div><p>500+ followers</p><p><span class='glyphicon glyphicon-star star'></span></p></div>";
+    legend += "<div><p>10+ favorites<p></p><span style='color: blue;'>blue border</span></p></div>";
+    legend += "<div><p>10+ retweets<p></p><span style='color: green;'>green border</span></p></div>";
+    legend += "<div><p>10+ favorites & retweets<p></p><span style='color: red;'>red border</span></p></div>";
     legend += "</div>";
 
     $tweetList.append(legend);

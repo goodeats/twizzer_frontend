@@ -5,7 +5,8 @@ $jumbo = $('#jumbo'),
 $tweetList = $('#tweet-list'),
 $search = $('#handleInput'),
 $form = $('.form-inline'),
-$gridButton = $('#btnOther');
+$gridButton = $('#btnOther'),
+$tweetPic = $('.tweetPic');
 
 console.log('if you can read this, you are probably a web developer :)');
 
@@ -99,22 +100,23 @@ App.MyGridTweets = function(event){
   .done(function(data) {
     console.log(data);
 
-    // pass in the 'created_at' string returned from twitter //
-    // stamp arrives formatted as Tue Apr 07 22:52:51 +0000 2009 //
-    function parseTwitterDate(text) {
-    var date = new Date(Date.parse(text)).toLocaleDateString();
-    var time = new Date(Date.parse(text)).toLocaleTimeString();
-    return date +' • ' + time;
-    }
+    var legend = "<div id='legend'>";
+    legend += "<p>500+ followers = <span class='glyphicon glyphicon-star star'></span></p>";
+    legend += "<p>10+ favorites = <span style='color: blue;'>blue border</span></p>";
+    legend += "<p>10+ retweets = <span style='color: green;'>green border</span></p>";
+    legend += "<p>10+ favorites & retweets = <span style='color: red;'>red border</span></p>";
+    legend += "</div>";
+
+    $tweetList.append(legend);
 
     for (var i = 0; i < data.tweets.length; i++) {
       if (data.tweets[i].entities.media) {
 
           var html = "<div class='tweetGrid'>";
           if (data.tweets[i].user.followers_count > 500) {
-            html += "<div class='star'><span class='glyphicon glyphicon-star'></div>";
+            html += "<div class='star'><span class='glyphicon glyphicon-star'></span></div>";
           }
-          html += "<img class='tweetPic' ";
+          html += "<img class='tweetPic' id='twitPic-" + i + "' ";
 
           if (data.tweets[i].favorite_count > 10 && data.tweets[i].retweet_count > 10){
             html += "style='border: 10px solid red;'";
@@ -125,7 +127,6 @@ App.MyGridTweets = function(event){
           }
 
           html += " src='" + data.tweets[i].entities.media[0].media_url + "'>";
-          console.log(html);
           html += "<div class='twitterStats'>";
           html += "<span>RT: " + data.tweets[i].retweet_count + "</span>";
           html += "<span>F: " + data.tweets[i].favorite_count + "</span>";
@@ -135,12 +136,16 @@ App.MyGridTweets = function(event){
       }
     }
 
-    // add for lo here to isolate??
     $('.twitterStats').hide();
-    $('.tweetPic').mouseenter(function(){
-      $('.twitterStats').show();
+
+    $('.tweetGrid').mouseenter(function(){
+      var $div = $('.twitterStats').eq($(this).index('.tweetGrid'));
+      $div.show();
+      $div.css('position', 'absolute');
+      $div.css('width', '100%');
     }).mouseleave(function(){
-      $('.twitterStats').hide();
+      var $div = $('.twitterStats').eq($(this).index('.tweetGrid'));
+      $div.hide();
     });
 
   })

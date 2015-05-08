@@ -110,6 +110,7 @@ App.MyGridTweets = function(event){
     for (var i = 0; i < data.tweets.length; i++) {
       if (data.tweets[i].entities.media) {
         var html = "<div class='tweetGrid'>";
+        html += "<div class='star'><span class='glyphicon glyphicon-star'></div>";
         html += "<img class='tweetPic' src='" + data.tweets[i].entities.media[0].media_url + "'>";
         html += "<div class='twitterStats'>";
         html += "<span>RT: " + data.tweets[i].retweet_count + "</span>";

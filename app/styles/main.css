@@ -32,6 +32,18 @@
   margin-right: 10px;
 }
 
+.star {
+  color: #FFD700;
+  font-size: 20px;
+}
+
+.tweetGrid .star {
+  z-index: 20;
+  position: relative;
+  margin-bottom: -40px;
+  margin-left: 10px;
+}
+
 /* Space out content a bit */
 body {
   padding-top: 20px;
